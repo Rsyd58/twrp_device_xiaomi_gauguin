@@ -1,9 +1,16 @@
 # mount point		fstype	device					device2				flags
 
 /system_root		ext4	/dev/block/mapper/system					flags=backup=1;removable;display="System";flashimg=1
+/system_root    erofs   /dev/block/mapper/system                     flags=backup=0;removable;display="System"
 /system_ext			ext4	/dev/block/mapper/system_ext				flags=backup=1;removable;display="System_ext";flashimg=1
+/system_ext     erofs   /dev/block/mapper/system_ext                 flags=backup=0;removable;display="System_ext"
 /product			ext4	/dev/block/mapper/product					flags=backup=1;removable;display="Product";flashimg=1
+/product        erofs   /dev/block/mapper/product                    flags=backup=0;removable;display="Product"
 /vendor				ext4	/dev/block/mapper/vendor					flags=backup=1;removable;display="Vendor";flashimg=1
+/vendor         erofs   /dev/block/mapper/vendor                     flags=backup=0;removable;display="Vendor"
+/odm         ext4   /dev/block/mapper/odm                     flags=backup=0;removable;display="Odm"
+/odm         erofs   /dev/block/mapper/odm                     flags=backup=0;removable;display="Odm"
+
 /metadata			ext4	/dev/block/by-name/metadata					flags=display="Metadata";wrappedkey
 
 /storage			f2fs	/data/media/0								flags=backup=1;display="Storage";usermrf;fsflags="bind";removable
@@ -24,7 +31,7 @@
 /cust_image			emmc	/dev/block/bootdevice/by-name/cust			flags=backup=0;flashimg=1
 /vbmeta				emmc	/dev/block/bootdevice/by-name/vbmeta		flags=backup=1;display="Vbmeta";flashimg=1
 /vbmeta_system		emmc	/dev/block/bootdevice/by-name/vbmeta_system	flags=backup=1;display="Vbmeta_Sys";flashimg=1
-/frp				emmc	/dev/block/bootdevice/by-name/frp			flags=backup=1;display="Frp";flashimg=1
+/frp				emmc	/dev/block/bootdevice/by-name/frp			flags=backup=1;display="Frp";flashimg=0;wipeingui
 
 /abl				emmc	/dev/block/bootdevice/by-name/abl			flags=backup=1;display="Firmware"
 /aop				emmc	/dev/block/bootdevice/by-name/aop			flags=backup=1;subpartitionof=/abl

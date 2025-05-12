@@ -21,6 +21,7 @@ BOARD_VENDOR := $(or $(word 2,$(subst /, ,$(firstword $(MAKEFILE_LIST)))),$(valu
 
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 $(call inherit-product, vendor/$(CUSTOM_VENDOR)/config/common.mk)
+$(call inherit-product, vendor/rsyd-keys/product.mk)
 
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.vendor.build.security_patch=2127-12-31
@@ -28,6 +29,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 ## Device identifier. This must come after all inclusions
 PRODUCT_DEVICE := gauguin
 PRODUCT_NAME := twrp_gauguin
-PRODUCT_BRAND := Xiaomi
-PRODUCT_MODEL := Mi 10T Lite
+PRODUCT_BRAND := Redmi
+PRODUCT_MODEL := Redmi Note 9 Pro 5G
 PRODUCT_MANUFACTURER := Xiaomi

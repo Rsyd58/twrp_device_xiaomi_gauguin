@@ -17,36 +17,37 @@
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 BUILD_BROKEN_MISSING_REQUIRED_MODULES := true
+ALLOW_MISSING_DEPENDENCIES := true
 
 # Architecture
 TARGET_ARCH := arm64
-TARGET_ARCH_VARIANT := armv8-a
+TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := kryo
+TARGET_CPU_VARIANT := cortex-a55
 
 TARGET_2ND_ARCH := arm
-TARGET_2ND_ARCH_VARIANT := armv8-a
+TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a73
+TARGET_2ND_CPU_VARIANT := cortex-a55
 
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
 # Bootloader
 PRODUCT_PLATFORM := lito
-TARGET_BOOTLOADER_BOARD_NAME := lagoon
+TARGET_BOOTLOADER_BOARD_NAME := gauguin
 TARGET_NO_BOOTLOADER := true
 TARGET_USES_UEFI := true
 
 # Platform
-TARGET_BOARD_PLATFORM := lagoon
+TARGET_BOARD_PLATFORM := lito
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno619
-QCOM_BOARD_PLATFORMS += lagoon
+QCOM_BOARD_PLATFORMS += lito
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=1 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket androidboot.boot_devices=soc/1d84000.ufshc androidboot.fastboot=1
+BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200,n8 androidboot.hardware=qcom androidboot.console=ttyMSM0 androidboot.memcg=1 lpm_levels.sleep_disabled=0 video=vfb:640x400,bpp=32,memsize=3072000 msm_rtb.filter=0x237 service_locator.enable=1 androidboot.usbcontroller=a600000.dwc3 swiotlb=2048 cgroup.memory=nokmem,nosocket androidboot.boot_devices=soc/1d84000.ufshc androidboot.fastboot=1
 BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive androidboot.init_fatal_reboot_target=recovery
 BOARD_KERNEL_IMAGE_NAME := Image
 BOARD_KERNEL_PAGESIZE := 4096
@@ -77,7 +78,7 @@ BOARD_MKBOOTIMG_ARGS += --kernel $(TARGET_PREBUILT_KERNEL)
 BOARD_MKBOOTIMG_ARGS += --recovery_dtbo $(BOARD_PREBUILT_DTBOIMAGE)
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := gauguin,gauguininpro,gauguinpro
+TARGET_OTA_ASSERT_DEVICE := gauguin,gauguininpro,gauguinpro,gauguinin
 
 # Avb
 BOARD_AVB_ENABLE := true
@@ -97,7 +98,7 @@ BOARD_RECOVERYIMAGE_PARTITION_SIZE := 134217728
 BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := main
 BOARD_MAIN_SIZE := 9126805504
-BOARD_MAIN_PARTITION_LIST := system system_ext vendor product
+BOARD_MAIN_PARTITION_LIST := system system_ext vendor product odm
 
 # System as root
 BOARD_ROOT_EXTRA_FOLDERS := metadata
@@ -108,10 +109,17 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # Workaround for error copying files to ramdisk
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-TARGET_COPY_OUT_VENDOR := vendor
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+TARGET_COPY_OUT_ODM := odm
+TARGET_COPY_OUT_PRODUCT := product
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+TARGET_COPY_OUT_SYSTEM := system
+TARGET_COPY_OUT_VENDOR := vendor
+BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_ODMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
 # Recovery
 BOARD_HAS_LARGE_FILESYSTEM := true
@@ -138,19 +146,38 @@ TARGET_USES_MKE2FS := true
 TWRP_INCLUDE_LOGCAT := true
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
 TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone1/temp"
-TW_DEVICE_VERSION := 12
+TW_DEVICE_VERSION := RasyidFurina
 TW_EXCLUDE_APEX := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXCLUDE_LPDUMP := true
-TW_EXCLUDE_LPTOOLS := true
+#TW_EXCLUDE_DEFAULT_USB_INIT := true
+#TW_EXCLUDE_LPDUMP := true
+#TW_EXCLUDE_LPTOOLS := true
 TW_EXTRA_LANGUAGES := true
 TW_INCLUDE_NTFS_3G := true
 TW_INCLUDE_PYTHON := true
 TW_INCLUDE_REPACKTOOLS := true
 TW_INCLUDE_RESETPROP := true
+TW_EXCLUDE_SUPERSU := true
+TW_INCLUDE_FB2PNG := true
+BOARD_RAMDISK_USE_LZ4 := true
+TW_ENABLE_ALL_PARTITION_TOOLS := true
+TW_USE_EXTERNAL_STORAGE := true
+TW_MTP_DEVICE := "Xiaomi Redmi Note 9 Pro 5G"
+TW_INCLUDE_FASTBOOTD := true
+TW_EXCLUDE_TWRPAPP := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+TW_FRAMERATE := 120
+TW_HAS_EDL_MODE := true
+TW_INCLUDE_LPTOOLS := true
+TW_INCLUDE_LIBRESETPROP := true
+TW_NO_BIND_SYSTEM := false
+TW_ROUND_SCREEN := true
+TW_USE_NEW_MINADBD := true
+TW_USE_MODEL_HARDWARE_ID_FOR_DEVICE_ID := true
+TW_BATTERY_SYSFS_WAIT_SECONDS := 6
+SELINUX_IGNORE_NEVERALLOWS := true
 TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_MAX_BRIGHTNESS := 2047
-TW_DEFAULT_BRIGHTNESS := 1200
+TW_MAX_BRIGHTNESS := 4095
+TW_DEFAULT_BRIGHTNESS := 491
 TW_NO_SCREEN_BLANK := true
 TW_SUPPORT_INPUT_1_2_HAPTICS := true
 TW_THEME := portrait_hdpi
